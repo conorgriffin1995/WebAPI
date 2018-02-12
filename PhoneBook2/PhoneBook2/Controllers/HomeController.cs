@@ -13,8 +13,8 @@ namespace PhoneBook2.Controllers
         private PhoneBook book = new PhoneBook();
         private static List<PhoneBook> list = new List<PhoneBook>()
         {
-            new PhoneBook {Number = 085265465, Name = "Tom", Address = "14 Down the road" },
-            new PhoneBook {Number = 0877845621, Name = "James", Address = "33 Hollywood Avenue" }
+            new PhoneBook {Number = 0851715566, Name = "Conor", Address = "13 Tamarisk Walk" }
+
         };
 
         public void AddPhoneBook()
@@ -26,7 +26,7 @@ namespace PhoneBook2.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            // AddPhoneBook();
+            //AddPhoneBook();
             return View();
         }
     }

@@ -71,15 +71,36 @@ namespace PhoneBook2.Controllers
                     }
                     else
                     {
-
+                        entry.Number = person.Number;
+                        db.SaveChanges();
+                        return Ok(entry);
                     }
                 }
+                else
+                {
+                    return BadRequest("Invalid Number.");
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
 
-        // DELETE api/values/5
-        public void Delete(int id)
+        // DELETE api/PhoneBook/085265465
+        public IHttpActionResult DeleteEntry(int number)
         {
+            var entry = db.PhoneBooks.SingleOrDefault(p => p.Number == number);
+            if(entry != null)
+            {
+                db.PhoneBooks.Remove(entry);
+                db.SaveChanges();
+                return Ok(entry);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
