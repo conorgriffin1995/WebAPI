@@ -29,25 +29,24 @@ namespace PhoneBook2.Controllers
             return Ok(pbook);
         }
         // POST api/PhoneBook
-        public IHttpActionResult PostAddperson(PhoneBook person)
+        public IHttpActionResult PostAddPerson(PhoneBook person)
         {
             if (ModelState.IsValid)
             {
-                var error1 = db.PhoneBooks.Where(p => p.Name.ToUpper() == person.Name.ToUpper());
-                var error2 = db.PhoneBooks.Where(p => p.Number == person.Number);
-                if(error1 != null || error2 != null)
-                {
-                    return BadRequest("Number or Name already exists");
-                }
-                else
+                //var error1 = db.PhoneBooks.Where(p => p.Name.ToUpper() == person.Name.ToUpper());
+                var error = db.PhoneBooks.SingleOrDefault(p => p.ID == person.ID);
+                if(error == null)
                 {
                     db.PhoneBooks.Add(person);
                     db.SaveChanges();
 
                     // create http response with created status code and listing serialised as content and Location header set to URI for new resource
                     string uri = Url.Link("DefaultApi", new { id = person.ID });
-                    return Created(uri, person);
-
+                    return Created(uri, person);                   
+                }
+                else
+                {
+                    return BadRequest("Number or Name already exists");
                 }   
             }
             else
@@ -58,13 +57,13 @@ namespace PhoneBook2.Controllers
 
         // update an entry (replace a number with new entry)
         // PUT /api/PhoneBook
-        public IHttpActionResult PutUpdateEntry(int number, PhoneBook person)
+        public IHttpActionResult PutUpdateEntry(string address, PhoneBook person)
         {
             if (ModelState.IsValid)
             {
-                if(number == person.Number)
+                if(address == person.Address)
                 {
-                    var entry = db.PhoneBooks.SingleOrDefault(p => p.Number == person.Number);
+                    var entry = db.PhoneBooks.SingleOrDefault(p => p.Address.ToUpper() == person.Address.ToUpper());
                     if(entry == null)
                     {
                         return NotFound();
@@ -87,10 +86,10 @@ namespace PhoneBook2.Controllers
             }
         }
 
-        // DELETE api/PhoneBook/085265465
-        public IHttpActionResult DeleteEntry(int number)
+        // DELETE api/PhoneBook/Road
+        public IHttpActionResult DeleteEntry(string address)
         {
-            var entry = db.PhoneBooks.SingleOrDefault(p => p.Number == number);
+            var entry = db.PhoneBooks.SingleOrDefault(p => p.Address == address);
             if(entry != null)
             {
                 db.PhoneBooks.Remove(entry);

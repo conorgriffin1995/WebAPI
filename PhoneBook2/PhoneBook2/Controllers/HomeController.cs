@@ -13,7 +13,9 @@ namespace PhoneBook2.Controllers
         private PhoneBook book = new PhoneBook();
         private static List<PhoneBook> list = new List<PhoneBook>()
         {
-            new PhoneBook {Number = 0851715566, Name = "Conor", Address = "13 Tamarisk Walk" }
+            new PhoneBook { Number = 0851715566, Name = "Conor Griffin", Address = "13 Tamarisk Walk" },
+            new PhoneBook { Number = 0851470074, Name = "Tom O'Dowd", Address = "15 Down the road" },
+            new PhoneBook {Number = 0877927436, Name = "Declan Griffin", Address = "33 Tamarisk Avenue" }
 
         };
 
