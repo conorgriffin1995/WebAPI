@@ -14,6 +14,7 @@ namespace PhoneBook2.Controllers
         private PhoneBookContext db = new PhoneBookContext();
 
         // GET api/PhoneBook
+        [HttpGet]
         public IHttpActionResult GetAllPhoneBook()
         {
             return Ok(db.PhoneBooks.OrderBy(p => p.ID).ToList());
@@ -29,6 +30,7 @@ namespace PhoneBook2.Controllers
             return Ok(pbook);
         }
         // POST api/PhoneBook
+        [HttpPost]
         public IHttpActionResult PostAddPerson(PhoneBook person)
         {
             if (ModelState.IsValid)
@@ -56,14 +58,15 @@ namespace PhoneBook2.Controllers
         }
 
         // update an entry (replace a number with new entry)
-        // PUT /api/PhoneBook
-        public IHttpActionResult PutUpdateEntry(string address, PhoneBook person)
+        // PUT /api/PhoneBook/
+        [HttpPut]
+        public IHttpActionResult PutUpdateEntry(int number, PhoneBook person)
         {
             if (ModelState.IsValid)
             {
-                if(address == person.Address)
+                if(number == person.Number)
                 {
-                    var entry = db.PhoneBooks.SingleOrDefault(p => p.Address.ToUpper() == person.Address.ToUpper());
+                    var entry = db.PhoneBooks.SingleOrDefault(p => p.Number == person.Number);
                     if(entry == null)
                     {
                         return NotFound();
@@ -87,6 +90,7 @@ namespace PhoneBook2.Controllers
         }
 
         // DELETE api/PhoneBook/Road
+        [HttpDelete]
         public IHttpActionResult DeleteEntry(string address)
         {
             var entry = db.PhoneBooks.SingleOrDefault(p => p.Address == address);

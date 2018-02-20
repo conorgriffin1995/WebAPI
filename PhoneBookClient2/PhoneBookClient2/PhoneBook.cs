@@ -8,7 +8,7 @@ namespace PhoneBook2.Models
 {
     class PhoneBook
     {
-        public int Number
+        public string Number
         {
             get;
             set;
