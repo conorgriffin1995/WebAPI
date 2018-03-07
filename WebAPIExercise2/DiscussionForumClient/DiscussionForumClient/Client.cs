@@ -45,14 +45,15 @@ namespace DiscussionForumClient
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:50887/");
+                    client.BaseAddress = new Uri("http://localhost:50887");
 
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     Forum entry = new Forum();
-                    HttpResponseMessage response = await client.GetAsync("/forum/post/3");
+                    HttpResponseMessage response = await client.GetAsync("forum/post/1");
                     if (response.IsSuccessStatusCode)
                     {
+                        Console.WriteLine(response.StatusCode);
                         entry = await response.Content.ReadAsAsync<Forum>();
                         Console.WriteLine(entry.ID + "\n" + entry.Timestamp + "\n" + entry.UserPost.Subject + "\n" + entry.UserPost.Message + "\n");
                     }
